@@ -1,0 +1,92 @@
+@mixin failed
+  background: #6F2F2F
+  border: 1px solid black
+@mixin passed
+  background: #2F6F2F
+  border: 1px solid black
+
+@mixin scrollbar
+  ::-webkit-scrollbar
+    height: 13px
+    width: 13px
+  ::-webkit-scrollbar-thumb:vertical
+    border-radius: 10px
+    background: -webkit-linear-gradient(left, black, rgba(255, 255, 255, 0)) black
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 0 1px inset
+  ::-webkit-scrollbar-thumb:horizontal
+    border-radius: 10px
+    background: -webkit-linear-gradient(black, rgba(255, 255, 255, 0)) black
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 0 1px inset
+  ::-webkit-scrollbar-button
+    display: block
+    width: 0
+    height: 0
+  ::-webkit-scrollbar-track-piece
+    -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0 0 3px 1px inset
+  ::-webkit-scrollbar-corner
+    display: none
+
+
+
+.expand
+  padding: 3px 6px
+  font-weight: bold
+  cursor: pointer
+  .icon
+    width: 16px
+    height: 16px
+    display: block
+    background-image: url(ui-icons.png)
+    background-position: -32px -16px
+    float: left
+    margin: 3px
+
+.to_expand
+  +scrollbar
+  display: none
+  width: 846px
+  .tabs
+    div
+      max-height: 400px
+      overflow: auto
+      background-color: black
+      div
+        max-height: none
+        overflow: visible
+  pre, code
+    font-size: 13px !important
+    margin-left: 8px !important
+    line-height: 1.2 !important
+  .linenodiv
+    color: #333
+    border-right: 1px solid #111
+
+.ui-tabs .ui-tabs-nav li a
+  color: white !important
+
+#listing
+  margin: 20px 1px 0 1px
+
+table
+  border-collapse: collapse
+  margin-bottom: 0 !important
+  th
+    text-align: center
+  th, td
+    padding: 1px 0 0 0 !important
+  td.pass
+    +passed
+  td.fail
+    +failed
+  td.date
+    width: 100px
+    font-size: 120%
+    font-weight: bold
+    vertical-align: top
+    text-align: center
+  td.spacer
+    //display: block
+    height: 6px
+    padding: 0px
+    margin: 0px
+

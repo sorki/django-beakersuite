@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <title>{% block page_title %}List{% endblock %} | ABRT test suite results</title>
+    <link href='{{ MEDIA_URL }}screen.css' media='screen, projection' rel='stylesheet' type='text/css' />
+    <link href='{{ MEDIA_URL }}print.css' media='print' rel='stylesheet' type='text/css' />
+    <!--[if lt IE 8]> 
+      <link href='{{ MEDIA_URL }}ie.css' media='screen, projection' rel='stylesheet' type='text/css' />
+    <![endif]-->
+    <link href='{{ MEDIA_URL }}jquery-ui.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='{{ MEDIA_URL }}pygments.css' type='text/css' rel='stylesheet' />
+    <script type='text/javascript' src='{{ MEDIA_URL }}jquery.js'></script>
+    <script type='text/javascript' src='{{ MEDIA_URL }}jquery-ui.js'></script>
+    <script type='text/javascript' src='{{ MEDIA_URL }}tests.js'></script>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body class='bp one-col'>
+    <div id='container'>
+      <div id='header'>
+        <h1>Nightly Builds</h1>
+      </div>
+      <div id='content'>
+        {% block content %}{% endblock %}
+      </div>
+      <div id='footer'>
+        {% block footer %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
