@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 
 def render_error(request, msg):
-    return render_to_response('test_results/error.html',
+    return render_to_response('beakersuite/error.html',
         dict(error=msg),
         RequestContext(request, {}))
 
@@ -45,7 +45,7 @@ def list_results(request, data_path):
         rundata.append(dict(name=run, result=overal_fail, tests=tests))
         rundata.sort(reverse=True)
 
-    return render_to_response('test_results/list.html',
+    return render_to_response('beakersuite/list.html',
         dict(runs=rundata, test_count=range(1, test_count+1),
              data_path=data_path),
         RequestContext(request, {}))
