@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load test_results_extras %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+  <table>
+  <tr>
+    <th>Date</th>
+    {% comment %}
+    {% for i in test_count %}
+      <th>{{ i }}</th>
+    {% endfor %}
+    {% endcomment %}
+  </tr>
+  {% for run in runs %}
+    <tr>
+      <td class='date {% if run.1 %}fail{% else %}pass{% endif%}'> {{ run.0 }} </td>
+      {% for testdata in run.2 %}
+        <td class='{% if testdata.1 %}fail{% else %}pass{% endif%}'>
+        {{ testdata.0|short_testname }}
+        <a href="{{ run.0 }}/{{ testdata.0 }}">
+        </a>
+          <pre class='listing'>
+          {% for line in testdata.3 %}{{ line }}
+          {% endfor %}
+          </pre>
+        </td>
+
+        {% if forloop.counter|divisibleby:"8" %}
+        </tr><tr><td></td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+    <tr><td class='spacer' colspan='5'>&nbsp;</td></tr>
+  {% endfor %}
+  </table>
+{% endblock %}
+

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load test_results_extras %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+  <div id='listing'>
+    <table>
+    <tr>
+      <th>Date</th>
+    </tr>
+      {% for run in runs %}
+        <tr>
+          <td rowspan='{{ run.tests|length|add:"1" }}' 
+              class='date {% if run.result %}fail{% else %}pass{% endif%}'>
+              {{ run.name }}
+          </td>
+        </tr>
+        {% for test in run.tests %}
+          <tr>
+            <td class='{% if test.result %}fail{% else %}pass{% endif%}'>
+              <div class='head expand'>
+                <span class='icon'>&nbsp;</span> {{ test.name }}
+              </div>
+              <div class='to_expand'>
+                {% include "test_results/details.html" %}
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      <tr>
+        <td class='spacer' colspan='5'>
+          &nbsp;
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% with total=runs|length %}
+  {{ total }} run{{ total|pluralize }}
+  {% endwith %}
+{% endblock %}

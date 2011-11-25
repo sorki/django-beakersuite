@@ -1,0 +1,29 @@
+{% load test_results_extras %}
+{% load pygmentize %}
+
+{% get_details data_path run.name test.name %}
+<div class='tabs'>
+  <ul>
+    {% for file in test_details %}
+      <li>
+        <a href="#{{ run.name }}_{{ test.name }}_{{ file.name }}">
+          {{ file.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% for file in test_details %}
+    <div id='{{ run.name }}_{{ test.name }}_{{ file.name }}'>
+      <div class='content'>
+        <div>
+          {% filter pygmentize %}
+            {% if file.pretty %}
+              <code class='{{ file.pretty }}'>{% else %}
+              <code class='text'>{% endif %}
+{{ file.content|safe }}</code>
+          {% endfilter %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
