@@ -12,6 +12,7 @@ def list_results(request, data_path):
     if not os.path.isdir(data_path):
         render_error(request, 'No such dir: %s' % data_path)
 
+    test_count = 0
     rundata = []
     for run in os.listdir(data_path):
         fname = os.path.join(data_path, run, 'results')
@@ -24,7 +25,6 @@ def list_results(request, data_path):
         tests = []
         test_name = None
         test_fail = False
-        test_count = 0
         overal_fail = False
 
         for l in cont:
