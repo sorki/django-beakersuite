@@ -8,7 +8,7 @@ def render_error(request, msg):
         dict(error=msg),
         RequestContext(request, {}))
 
-def list(request, data_path):
+def list_results(request, data_path):
     if not os.path.isdir(data_path):
         render_error(request, 'No such dir: %s' % data_path)
 
