@@ -8,7 +8,9 @@ def render_error(request, msg):
         dict(error=msg),
         RequestContext(request, {}))
 
-def list_results(request, data_path):
+def list_results(request, data_path,
+    template_name='beakersuite/list.html'):
+
     if not os.path.isdir(data_path):
         render_error(request, 'No such dir: %s' % data_path)
 
@@ -45,7 +47,7 @@ def list_results(request, data_path):
         rundata.append(dict(name=run, result=overal_fail, tests=tests))
         rundata.sort(reverse=True)
 
-    return render_to_response('beakersuite/list.html',
+    return render_to_response(template_name,
         dict(runs=rundata, test_count=range(1, test_count+1),
              data_path=data_path),
         RequestContext(request, {}))
