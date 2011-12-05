@@ -9,6 +9,7 @@ def render_error(request, msg):
         RequestContext(request, {}))
 
 def list_results(request, data_path,
+    num_latest=None,
     template_name='beakersuite/list.html'):
 
     if not os.path.isdir(data_path):
@@ -16,7 +17,12 @@ def list_results(request, data_path,
 
     test_count = 0
     rundata = []
-    for run in os.listdir(data_path):
+    dirs = os.listdir(data_path)
+    dirs.sort(reverse=True)
+    if num_latest:
+        dirs = dirs[0:num_latest]
+
+    for run in dirs:
         fname = os.path.join(data_path, run, 'results')
         if os.path.isfile(fname):
             with open(fname) as f:
