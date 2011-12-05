@@ -4,7 +4,9 @@ from django.conf import settings
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-default_datapath = settings.BEAKERSUITE_DATA_PATH
+default_datapath = None
+if hasattr(settings, 'BEAKERSUITE_DATA_PATH'):
+    default_datapath = settings.BEAKERSUITE_DATA_PATH
 
 def render_error(request, msg):
     return render_to_response('beakersuite/error.html',
