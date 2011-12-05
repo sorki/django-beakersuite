@@ -9,10 +9,10 @@ $(document).ready(function() {
       c.slideUp('fast');
     }
   });
-  var tabs = $( ".tabs" ).tabs();
 
+  var tabs = $( ".tabs" ).tabs();
   var hash= window.location.hash;
-  var eid = hash.split('#')[2];
+  var eid = hash.split('#')[1];
   var elem = $("#" + eid);
   var exp = elem.parents('td').find('.expand');
   exp.click();
