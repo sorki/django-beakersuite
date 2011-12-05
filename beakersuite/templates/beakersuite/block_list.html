@@ -18,7 +18,7 @@
         {% for test in run.tests %}
           <td class='{% if test.result %}fail{% else %}pass{% endif%}'
           title='{{ test.name }}'>
-            <a href='{% url beakersuite_single run.name %}#{{ run.name }}_{{ test.name }}_protocol'></a>
+            <a href='{% url beakersuite_single run.name %}#{{ run.name }}_{{ test.name }}_{% if test.result %}fail{% else %}protocol{% endif%}'></a>
           </td>
         {% endfor %}
       </tr>
