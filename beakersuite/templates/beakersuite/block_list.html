@@ -5,22 +5,27 @@
 {% block title %}List{% endblock %}
 
 {% block content %}
-  <table>
-  <tr>
-    <th>Date</th>
-  </tr>
-  {% for run in runs %}
+  <div id='listing'>
+    <table id='blocks'>
     <tr>
-      <td class='date {% if run.result %}fail{% else %}pass{% endif%}'> {{ run.name }} </td>
-      {% for test in run.tests %}
-        <td class='{% if test.result %}fail{% else %}pass{% endif%}'
-        title='{{ test.name }}'>
-        </td>
-      {% endfor %}
+      <th>Date</th>
     </tr>
-    <tr>
-  {% endfor %}
-  </table>
+    {% for run in runs %}
+      <tr>
+        <td class='date {% if run.result %}fail{% else %}pass{% endif%}'>
+        <a href='{% url beakersuite_single run.name %}'>{{ run.name }}</a>
+        </td>
+        {% for test in run.tests %}
+          <td class='{% if test.result %}fail{% else %}pass{% endif%}'
+          title='{{ test.name }}'>
+            <a href='{% url beakersuite_single run.name %}#{{ run.name }}_{{ test.name }}_protocol'></a>
+          </td>
+        {% endfor %}
+      </tr>
+      <tr>
+    {% endfor %}
+    </table>
+  </div>
 {% endblock %}
 
 {% block footer %}
