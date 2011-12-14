@@ -40,7 +40,6 @@ def list_single(request,
         dict(runs=rundata, data_path=data_path),
         RequestContext(request, {}))
 
-
 def list_dirs(data_path, only_dirs, num_latest):
     test_count = 0
     rundata = []
@@ -52,7 +51,6 @@ def list_dirs(data_path, only_dirs, num_latest):
     if only_dirs:
         dirs = filter(lambda x: x in only_dirs, dirs)
 
-
     for run in dirs:
         rundir = os.path.join(data_path, run)
         results_fname = os.path.join(rundir, 'results')
@@ -62,7 +60,11 @@ def list_dirs(data_path, only_dirs, num_latest):
         tests = []
         overal_fail = False
 
-        for test in os.listdir(tests_dir):
+        dirs = os.listdir(tests_dir)
+        dirs.sort(key=lambda x: os.path.getmtime(
+            os.path.join(tests_dir, x)))
+
+        for test in dirs:
             test_dir_path = os.path.join(tests_dir, test)
             if not os.path.isdir(test_dir_path): continue
 
