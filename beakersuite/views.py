@@ -52,34 +52,26 @@ def list_dirs(data_path, only_dirs, num_latest):
     if only_dirs:
         dirs = filter(lambda x: x in only_dirs, dirs)
 
+
     for run in dirs:
-        fname = os.path.join(data_path, run, 'results')
-        if os.path.isfile(fname):
-            with open(fname) as f:
-                cont = map(lambda x: x.strip(), f.readlines())
-        else:
-            continue
+        rundir = os.path.join(data_path, run)
+        results_fname = os.path.join(rundir, 'results')
+        if not os.path.isfile(results_fname): continue
+        tests_dir = os.path.join(rundir, 'test')
 
         tests = []
-        test_name = None
-        test_fail = False
         overal_fail = False
 
-        for l in cont:
-            if 'Test name' in l:
-                if test_name is None:
-                    test_name = l.split('Test name')[1].split(':')[1].strip()
-                else:
-                    tests.append(dict(name=test_name, result=test_fail))
-                    test_fail = False
-                    test_name = l.split('Test name')[1].split(':')[1].strip()
+        for test in os.listdir(tests_dir):
+            test_dir_path = os.path.join(tests_dir, test)
+            if not os.path.isdir(test_dir_path): continue
 
-            if 'FAIL' in l:
-                test_fail = True
+            test_fail = os.path.isfile(os.path.join(test_dir_path, 'fail.log'))
+            if test_fail:
                 overal_fail = True
 
-        tests.append(dict(name=test_name, result=test_fail))
-        test_count = max(test_count, len(tests))
+            tests.append(dict(name=test, result=test_fail))
+
         rundata.append(dict(name=run, result=overal_fail, tests=tests))
         rundata.sort(reverse=True)
 
