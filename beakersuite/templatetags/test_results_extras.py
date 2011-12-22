@@ -33,3 +33,7 @@ def get_details(context, data, run, test):
 
             context['test_details'] = contentlist
         return ''
+
+@register.filter
+def split_dt(value):
+    return value.split('_')

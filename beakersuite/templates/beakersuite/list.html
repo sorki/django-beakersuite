@@ -14,7 +14,7 @@
         <tr>
           <td rowspan='{{ run.tests|length|add:"1" }}' 
               class='date {% if run.result %}fail{% else %}pass{% endif%}'>
-              {{ run.name }}
+              {{ run.name|split_dt|join:" " }}
           </td>
         </tr>
         {% for test in run.tests %}

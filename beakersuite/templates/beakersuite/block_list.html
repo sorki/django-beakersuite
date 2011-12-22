@@ -13,7 +13,7 @@
     {% for run in runs %}
       <tr>
         <td class='date {% if run.result %}fail{% else %}pass{% endif%}'>
-        <a href='{% url beakersuite_single run.name %}'>{{ run.name }}</a>
+        <a href='{% url beakersuite_single run.name %}'>{{ run.name|split_dt|join:" " }}</a>
         </td>
         {% for test in run.tests %}
           <td class='{% if test.result %}fail{% else %}pass{% endif%}'
