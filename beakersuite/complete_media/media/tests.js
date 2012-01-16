@@ -13,7 +13,7 @@ $(document).ready(function() {
   var tabs = $( ".tabs" ).tabs();
   var hash= window.location.hash;
   var eid = hash.split('#')[1];
-  var elem = $("#" + eid);
+  var elem = $('div[id^="' + eid + '"]');
   var exp = elem.parents('td').find('.expand');
   exp.click();
   tabs.tabs('select', '#' + eid);
