@@ -20,6 +20,7 @@ def get_details(context, data, run, test):
 
         contentlist = []
 
+        # add known files
         for fname, pretty in filelist.items():
             var = fname.replace('.log', '')
             fpath = os.path.join(data_dir, fname)
@@ -31,7 +32,21 @@ def get_details(context, data, run, test):
                 if d['content']:
                     contentlist.append(d)
 
-            context['test_details'] = contentlist
+        # add unknown files
+        for fname in os.listdir(data_dir):
+            if fname in filelist.keys(): continue
+
+            var = fname.replace('.log', '')
+            fpath = os.path.join(data_dir, fname)
+            if os.path.isfile(fpath):
+                d = dict(
+                    name=var,
+                    content=open(fpath).read())
+                if d['content']:
+                    contentlist.append(d)
+
+
+        context['test_details'] = contentlist
         return ''
 
 @register.filter
